@@ -3,14 +3,14 @@ package com.mooprog.task.taskmanagementapi.model;
 import java.time.LocalDate;
 
 public class Task {
-    private int id;
+    private Long id;
     private String title;
     private String description;
     private boolean completed;
     private String priority; //HIGH , MEDIUM , LOW
     private LocalDate dueDate;
 
-    public Task(int id, String title, String description, boolean completed, String priority, LocalDate dueDate) {
+    public Task(Long id, String title, String description, boolean completed, String priority, LocalDate dueDate) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -19,7 +19,7 @@ public class Task {
         this.dueDate = dueDate;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -43,7 +43,7 @@ public class Task {
         return dueDate;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

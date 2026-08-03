@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public class TaskRepository {
     private List<Task> tasks =new ArrayList<>();
-    private int nextId=1;
+    private Long nextId=1L;
 
     public TaskRepository(){
         tasks.add(new Task(nextId++, "First Task", "Description of the first task", false, "HIGH", LocalDate.now()));
