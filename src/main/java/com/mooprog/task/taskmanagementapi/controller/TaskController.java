@@ -40,4 +40,13 @@ public class TaskController {
     public Task createTask(@RequestBody Task task){
         return taskService.createTask(task);
     }
+    @GetMapping("/search/status")
+    public List<Task> getTasksNotCompleted(@RequestParam boolean completed){
+        return taskService.getTasksNotCompleted(completed);
+    }
+
+    @GetMapping("/numberOfTask")
+    public int getTasksNotCompleted(){
+        return taskService.numberOfTask();
+    }
 }

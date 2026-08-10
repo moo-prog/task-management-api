@@ -4,6 +4,7 @@ import com.mooprog.task.taskmanagementapi.model.Task;
 import com.mooprog.task.taskmanagementapi.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,21 @@ public class TaskService {
         return matchingTasks;
     }
     public Task createTask(Task task) {
+        task.setCreatedAt(LocalDateTime.now());
         return taskRepository.save(task);
     }
+    public List<Task> getTasksNotCompleted(boolean completed){
+        List<Task> matchingTasks = new ArrayList<>();
+        for(Task task : taskRepository.findAll()){
+            if (task.getPriority() != null && !task.isCompleted()){
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
+    public int numberOfTask(){
+        return taskRepository.numberOfTask();
+
+    }
+
 }

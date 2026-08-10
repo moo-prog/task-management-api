@@ -1,6 +1,7 @@
 package com.mooprog.task.taskmanagementapi.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Task {
     private Long id;
@@ -8,15 +9,23 @@ public class Task {
     private String description;
     private boolean completed;
     private String priority; //HIGH , MEDIUM , LOW
-    private LocalDate dueDate;
+    private LocalDateTime createdAt;;
 
-    public Task(Long id, String title, String description, boolean completed, String priority, LocalDate dueDate) {
+    public Task(Long id, String title, String description, boolean completed, String priority, LocalDateTime createdAt) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.completed = completed;
         this.priority = priority;
-        this.dueDate = dueDate;
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -39,9 +48,6 @@ public class Task {
         return priority;
     }
 
-    public LocalDate getDueDate() {
-        return dueDate;
-    }
 
     public void setId(Long id) {
         this.id = id;
@@ -63,7 +69,5 @@ public class Task {
         this.priority = priority;
     }
 
-    public void setDueDate(LocalDate dueDate) {
-        this.dueDate = dueDate;
-    }
+
 }

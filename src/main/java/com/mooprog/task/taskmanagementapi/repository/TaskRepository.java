@@ -4,6 +4,7 @@ import com.mooprog.task.taskmanagementapi.model.Task;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +14,8 @@ public class TaskRepository {
     private Long nextId=1L;
 
     public TaskRepository(){
-        tasks.add(new Task(nextId++, "First Task", "Description of the first task", false, "HIGH", LocalDate.now()));
-        tasks.add(new Task(nextId++, "Second Task", "Description of the second task", true, "MEDIUM", LocalDate.now().plusDays(2)));
+        tasks.add(new Task(nextId++, "First Task", "Description of the first task", false, "HIGH",  LocalDateTime.now()));
+        tasks.add(new Task(nextId++, "Second Task", "Description of the second task", true, "MEDIUM",  LocalDateTime.now()));
 
     }
     public Task save(Task task){
@@ -26,5 +27,12 @@ public class TaskRepository {
        return tasks;
     }
 
+    public int numberOfTask(){
+        int sum=0;
+            for (Task task : tasks){
+                sum++;
+            }
+        return sum;
+    }
 
 }
