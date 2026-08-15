@@ -49,4 +49,12 @@ public class TaskController {
     public int getTasksNotCompleted(){
         return taskService.numberOfTask();
     }
+    @PutMapping("/{id}")
+    public Task updateTask(@RequestBody Task task, @PathVariable Long id){
+        return taskService.updatedTask(task , id);
+    }
+    @PutMapping("/{id}/status")
+    public Task updateTaskCompleted(@RequestBody Task task, @PathVariable Long id){
+        return taskService.updatedTaskCompleted(task , id);
+    }
 }

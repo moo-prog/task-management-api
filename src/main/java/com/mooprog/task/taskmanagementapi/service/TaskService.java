@@ -55,5 +55,11 @@ public class TaskService {
         return taskRepository.numberOfTask();
 
     }
+    public Task updatedTask(Task updatedTask, Long id) {
+        return taskRepository.updatedTask(updatedTask, id);
+    }
+    public Task updatedTaskCompleted(Task updatedTask, Long id) {
+        return taskRepository.updatedTaskCompleted(updatedTask, id);
+    }
 
 }
