@@ -3,7 +3,6 @@ package com.mooprog.task.taskmanagementapi.repository;
 import com.mooprog.task.taskmanagementapi.model.Task;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,5 +60,8 @@ public class TaskRepository {
         return null;
 
     }
+    public boolean deletedTask(Long id) {
+        return tasks.removeIf(t -> t.getId().equals(id));
 
-}
+    }
+    }

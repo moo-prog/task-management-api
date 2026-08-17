@@ -61,5 +61,8 @@ public class TaskService {
     public Task updatedTaskCompleted(Task updatedTask, Long id) {
         return taskRepository.updatedTaskCompleted(updatedTask, id);
     }
+    public boolean deltedTask(Long id) {
+        return taskRepository.deletedTask(id);
+    }
 
 }

@@ -1,8 +1,9 @@
 package com.mooprog.task.taskmanagementapi.controller;
 
 import com.mooprog.task.taskmanagementapi.model.Task;
-import com.mooprog.task.taskmanagementapi.repository.TaskRepository;
 import com.mooprog.task.taskmanagementapi.service.TaskService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,46 +16,64 @@ public class TaskController {
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
+
     @GetMapping
-    public List<Task> getAllTask(){
-        return taskService.getAllTask();
+    public ResponseEntity<List<Task>>  getAllTask() {
+        return ResponseEntity.ok(taskService.getAllTask());
     }
 // @PathVariable: Pulls values directly from the URL path (e.g., /api/tasks/{id}).
 // Best used to identify a specific resource.
 
     @GetMapping("/{id}")
-    public Task getTask(@PathVariable Long id){
+    public Task getTask(@PathVariable Long id) {
         return taskService.getTaskById(id);
     }
     // @RequestParam: Pulls query parameters from the URL after the '?' (e.g., /api/tasks/search?priority=HIGH).
-// Best used for filtering, searching, or sorting data.
+    // Best used for filtering, searching, or sorting data.
 
 
     @GetMapping("/search")
-    public List<Task> getTasksByPriority(@RequestParam String priority){
+    public List<Task> getTasksByPriority(@RequestParam String priority) {
         return taskService.getTasksByPriority(priority);
     }
+
     // @RequestBody: Converts the incoming HTTP request payload (JSON) into a Java object.
-// Best used for creating or updating resources with complex data (POST/PUT).
+    // Best used for creating or updating resources with complex data (POST/PUT).
     @PostMapping
-    public Task createTask(@RequestBody Task task){
-        return taskService.createTask(task);
+    public ResponseEntity<Task> createTask(@RequestBody Task task) {// <Task> means the response body will return the newly created Task object (with its generated ID and createdAt)
+        Task created = taskService.createTask(task);
+        // Return HTTP status 201 (Created) with the created task in the response body
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
+
     @GetMapping("/search/status")
-    public List<Task> getTasksNotCompleted(@RequestParam boolean completed){
+    public List<Task> getTasksNotCompleted(@RequestParam boolean completed) {
         return taskService.getTasksNotCompleted(completed);
     }
 
     @GetMapping("/numberOfTask")
-    public int getTasksNotCompleted(){
+    public int getNumberOfTasks() {
         return taskService.numberOfTask();
     }
+
     @PutMapping("/{id}")
-    public Task updateTask(@RequestBody Task task, @PathVariable Long id){
-        return taskService.updatedTask(task , id);
+    public Task updateTask(@RequestBody Task task, @PathVariable Long id) {
+        return taskService.updatedTask(task, id);
     }
+
     @PutMapping("/{id}/status")
-    public Task updateTaskCompleted(@RequestBody Task task, @PathVariable Long id){
-        return taskService.updatedTaskCompleted(task , id);
+    public Task updateTaskCompleted(@RequestBody Task task, @PathVariable Long id) {
+        return taskService.updatedTaskCompleted(task, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {// <Void> means the HTTP response body is completely empty (no data returned)
+        Boolean isDelted = taskService.deltedTask(id);
+        if (!isDelted) {
+            // If the task does not exist, return HTTP status 404 (Not Found)
+            return ResponseEntity.notFound().build();
+        }
+        // If the task was successfully deleted, return HTTP status 204 (No Content)
+        return ResponseEntity.noContent().build();
     }
 }
