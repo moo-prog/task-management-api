@@ -18,7 +18,7 @@ public class TaskController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Task>>  getAllTask() {
+    public ResponseEntity<List<Task>> getAllTask() {
         return ResponseEntity.ok(taskService.getAllTask());
     }
 // @PathVariable: Pulls values directly from the URL path (e.g., /api/tasks/{id}).
@@ -65,14 +65,10 @@ public class TaskController {
     public Task updateTaskCompleted(@RequestBody Task task, @PathVariable Long id) {
         return taskService.updatedTaskCompleted(task, id);
     }
-
+    //or you can use @ResponseStatus(HttpStatus.NO_CONTENT) without to change the function
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable Long id) {// <Void> means the HTTP response body is completely empty (no data returned)
-        Boolean isDelted = taskService.deltedTask(id);
-        if (!isDelted) {
-            // If the task does not exist, return HTTP status 404 (Not Found)
-            return ResponseEntity.notFound().build();
-        }
+        taskService.deltedTask(id);
         // If the task was successfully deleted, return HTTP status 204 (No Content)
         return ResponseEntity.noContent().build();
     }
