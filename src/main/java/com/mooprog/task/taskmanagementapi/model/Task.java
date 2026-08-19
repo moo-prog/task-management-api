@@ -1,13 +1,25 @@
 package com.mooprog.task.taskmanagementapi.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Task {
     private Long id;
+    @NotBlank (message = "Title is mandatory")
+    @Size(min = 3 , max = 100, message = "Title must be between 3 and 100 characters")
+
     private String title;
+
+    @Size(min = 3 , max = 500, message = "Title must be between 3 and 500 characters")
+
     private String description;
     private boolean completed;
+
+    @NotNull
     private String priority; //HIGH , MEDIUM , LOW
     private LocalDateTime createdAt;;
 

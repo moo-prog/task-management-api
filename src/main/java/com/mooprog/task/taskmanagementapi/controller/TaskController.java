@@ -2,6 +2,7 @@ package com.mooprog.task.taskmanagementapi.controller;
 
 import com.mooprog.task.taskmanagementapi.model.Task;
 import com.mooprog.task.taskmanagementapi.service.TaskService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,8 +40,10 @@ public class TaskController {
 
     // @RequestBody: Converts the incoming HTTP request payload (JSON) into a Java object.
     // Best used for creating or updating resources with complex data (POST/PUT).
+    // @Valid: Triggers automated validation on the request body against model constraints.
+    // Rejects invalid payloads immediately with HTTP 400 (Bad Request).
     @PostMapping
-    public ResponseEntity<Task> createTask(@RequestBody Task task) {// <Task> means the response body will return the newly created Task object (with its generated ID and createdAt)
+    public ResponseEntity<Task> createTask(@Valid @RequestBody Task task) {// <Task> means the response body will return the newly created Task object (with its generated ID and createdAt)
         Task created = taskService.createTask(task);
         // Return HTTP status 201 (Created) with the created task in the response body
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
@@ -57,12 +60,12 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
-    public Task updateTask(@RequestBody Task task, @PathVariable Long id) {
+    public Task updateTask(@Valid @RequestBody Task task, @PathVariable Long id) {
         return taskService.updatedTask(task, id);
     }
 
     @PutMapping("/{id}/status")
-    public Task updateTaskCompleted(@RequestBody Task task, @PathVariable Long id) {
+    public Task updateTaskCompleted(@Valid @RequestBody Task task, @PathVariable Long id) {
         return taskService.updatedTaskCompleted(task, id);
     }
     //or you can use @ResponseStatus(HttpStatus.NO_CONTENT) without to change the function
