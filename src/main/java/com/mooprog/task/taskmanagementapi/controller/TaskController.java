@@ -75,4 +75,10 @@ public class TaskController {
         // If the task was successfully deleted, return HTTP status 204 (No Content)
         return ResponseEntity.noContent().build();
     }
+    @DeleteMapping("/completed")
+    public ResponseEntity<Void> deleteCompletedTasks() {// <Void> means the HTTP response body is completely empty (no data returned)
+        taskService.deleteCompletedTasks();
+        // If the task was successfully deleted, return HTTP status 204 (No Content)
+        return ResponseEntity.noContent().build();
+    }
 }

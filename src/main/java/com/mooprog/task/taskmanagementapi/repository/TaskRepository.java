@@ -63,4 +63,9 @@ public class TaskRepository {
         return tasks.removeIf(t -> t.getId().equals(id));
 
     }
+    public int deleteCompletedTasks() {
+        int intialsize = tasks.size();
+        tasks.removeIf(t -> t.isCompleted());
+        return intialsize - tasks.size();
+    }
 }

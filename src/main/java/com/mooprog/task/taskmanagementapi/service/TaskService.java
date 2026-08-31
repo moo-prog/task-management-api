@@ -87,5 +87,7 @@ public class TaskService {
         }
 
     }
-
+    public int deleteCompletedTasks() {
+        return taskRepository.deleteCompletedTasks();
+    }
 }
